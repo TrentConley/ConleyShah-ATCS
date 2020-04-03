@@ -72,42 +72,109 @@ void mov_R(char arr[], int* pos_t)
     //above is to kill the program if bad.
 }
 
-void open_p(char arr[], int* pos_t)
+void findclose(char tablet[], int* pos_t)
 {
+    int c = 1;
+    while (c > 0)
+    {
+        *pos_t = *pos_t + 1;
+        if (tablet[*pos_t] == ')')
+        {
+            c = c - 1;
+        }
+        else if (tablet[*pos_t] == '(')
+        {
+            c = c + 1;
+        }
+    }
+}
 
+void findopen(char tablet[], int* pos_t)
+{
+    int c = 1;
+    while (c > 0)
+    {
+        *pos_t = *pos_t - 1;
+        if (tablet[*pos_t] == '(')
+        {
+            c = c - 1;
+        }
+        else if (tablet[*pos_t] == ')')
+        {
+            c = c + 1;
+        }
+    }
+}
+
+void open_p(char arr[], char tablet[], int* pos_a, int* pos_t)
+{
+    if (arr[*pos_a] == 0)
+    {
+        findclose(tablet, pos_t);
+        //auto- edits in the heap :)
+    }
+    else
+    {
+        *pos_t = *pos_t + 1;
+    }
+}
+
+void close_p(char arr[], char tablet[], int* pos_a, int* pos_t)
+{
+    if (arr[*pos_a] == 0)
+    {
+        *pos_t = *pos_t + 1;
+        //auto- edits in the heap :)
+    }
+    else
+    {
+        findclose(tablet, pos_t);
+
+    }
+}
+
+void yell(char arr[], int* pos_a)
+{
+    char c = (char) arr[*pos_a];
+    printf("%c", c);
 
 }
 
-void flow(char program[], char arrs[], int pos_p, int* pos_a)
+void flow(char tablet[], char arrs[], int* pos_t, int* pos_a)
 {
-    char mychar = program[pos_p];
+    char mychar = tablet[*pos_t];
     if (mychar == '+')
     {
         plus(arrs, pos_a);
+        pos_t = pos_t + 1;
     }
     else if (mychar == '-')
     {
         minus(arrs, pos_a);
+        pos_t = pos_t + 1;
     }
     else if (mychar == '(')
     {
-        // open_p()
+        open_p(arrs, tablet, pos_a, pos_t);
     }
     else if (mychar == ')')
     {
-        // close_p()
+        close_p(arrs, tablet, pos_a, pos_t);
     }
     else if (mychar == '<')
     {
         mov_L(arrs, pos_a);
+        pos_t = pos_t + 1;
     }
     else if (mychar == '>')
     {
         mov_R(arrs, pos_a);
+        pos_t = pos_t + 1;
     }
     else if (mychar == '*')
     {
-        //yell()
+        yell(arrs, pos_a);
+        pos_t = pos_t + 1;
     }
 
     // incriment pos_a by 1.
@@ -134,7 +201,9 @@ void print(char a[], int size)
 int main ()
 {
 //    declaring some shit
-    int pos_program = 0;
+    int pos_tablet = 0;
+    int *pos_tablet_ptr = malloc(sizeof(int));
+    *pos_tablet_ptr = 0;
 
     int pos_arrs = 0;
 
@@ -143,15 +212,14 @@ int main ()
     //printf(*pos_arr_ptr);
 
 
-    char program[6] = {'>','+', '+', '+', '>', '+'};
+    char tablet[6] = {'>','+', '+', '+', '>', '+'};
     char arrs[NUM_BYTES];
     init0(arrs, sizeof(arrs));
-    int size = sizeof(program);
+    int size = sizeof(tablet);
 
-    while (pos_program < size)
+    while ( (int) *pos_tablet_ptr < size)
     {
-        flow(program, arrs, pos_program, pos_arr_ptr);
-        pos_program = pos_program + 1;
+        flow(tablet, arrs, pos_tablet_ptr, pos_arr_ptr);
     }
     print(arrs, sizeof(arrs));
 
