@@ -20,24 +20,31 @@
 #define NUM_BYTES 50000
 
 //checks to see if the file is valid (matching parentheses error)
-bool checkMatchingParens(char arr[]) {
+int checkMatchingParens(char arr[])
+{
+    //going to return basically a boolean, so 0 is false an 1 is ture
 	counter = 0
-	for(int i = 0; i < sizeof(arr); i = i + 1){
-		if(counter < 0) {
+	for(int i = 0; i < sizeof(arr); i = i + 1)
+	{
+		if(counter < 0)
+		{
 			return false;
 		} else {
-			if(arr[i] == '(') {
+			if(arr[i] == '(')
+			{
 				counter = counter + 1;
 			}
-			if(arr[i] == ')') {
+			if(arr[i] == ')')
+			{
 				counter = counter - 1;
 			}
 		}
 	}
-	if(counter < 1) {
-		return false;
+	if(counter < 1)
+	{
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 int main ()
@@ -72,7 +79,7 @@ int main ()
    fclose(fp);
 
    //
-   bool check;
+   int check;
    check = checkMatchingParens(file_contents);
    if(check == false){
    	 printf("File is invalid. Matching Parentheses Error!");
