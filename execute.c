@@ -20,55 +20,57 @@
 #define NUM_BYTES 5
 #define MAX_SIZE 255
 
-void plus(char arr[], int* pos_t)
+void plus(char arr[], int* pos_a)
 {
-    if (arr[*pos_t] == (char) MAX_SIZE)
+    printf("yet%d\n", *pos_a);
+    if (arr[*pos_a] == (char) MAX_SIZE)
     {
-        arr[*pos_t] = 0;
+        arr[*pos_a] = 0;
     }
     else
     {
-      arr[*pos_t] = arr[*pos_t] + 1;
+      arr[*pos_a] = arr[*pos_a] + 1;
     }
 
 }
 
-void minus(char arr[], int* pos_t)
+void minus(char arr[], int* pos_a)
 {
-    if (arr[*pos_t] == 0)
+    if (arr[*pos_a] == 0)
     {
-        arr[*pos_t] = (char) MAX_SIZE;
+        arr[*pos_a] = (char) MAX_SIZE;
         printf("hit\n");
     }
     else
     {
-      arr[*pos_t] = arr[*pos_t] - 1;
+      arr[*pos_a] = arr[*pos_a] - 1;
     }
 }
 
 
-void mov_L(char arr[], int* pos_t)
+void mov_L(char arr[], int* pos_a)
 {
-    if (*pos_t == 0)
+    if (*pos_a == 0)
     {
         printf("You can't do that. You can't move to the left of the left most person. \n \n");
         exit(0);
     }
     //no else here because i want the program to break.
 
-    *pos_t = *pos_t - 1;
+    *pos_a = *pos_a - 1;
     //above is to kill the program if bad.
 }
 
-void mov_R(char arr[], int* pos_t)
+void mov_R(char arr[], int* pos_a)
 {
-    if (*pos_t == NUM_BYTES-1)
+    printf("%d\n", *pos_a);
+    if (*pos_a == NUM_BYTES-1)
     {
         printf("You can't do that. You can't move to the right of the right most person. \n \n");
         exit(0);
     }
     //no else here because i want the program to break.
-    *pos_t = *pos_t + 1;
+    *pos_a = *pos_a + 1;
     //above is to kill the program if bad.
 }
 
@@ -176,13 +178,9 @@ void flow(char tablet[], char arrs[], int* pos_t, int* pos_a)
         yell(arrs, pos_a);
         pos_t = pos_t + 1;
     }
-
-    // incriment pos_a by 1.
-//    *pos_a = *pos_a + 1;
-//    printf("pos_a = %d\n", (*pos_a));
-
-
 }
+
+
 void init0(char a[], int size)
 {
     for (int i = 0; i < size; i ++)
@@ -190,6 +188,8 @@ void init0(char a[], int size)
         a[i] = 0;
     }
 }
+
+
 void print(char a[], int size)
 {
     for (int i = 0; i < size; i ++)
