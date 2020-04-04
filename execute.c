@@ -22,28 +22,12 @@
 
 void plus(char arr[], int* pos_a)
 {
-
-    if ((int)arr[*pos_a] == 255)
-    {
-        arr[*pos_a] = (char)0;
-    }
-    else
-    {
       arr[*pos_a] = arr[*pos_a] + 1;
-    }
-
 }
 
 void minus(char arr[], int* pos_a)
 {
-    if ((int)arr[*pos_a] == 0)
-    {
-        arr[*pos_a] = (char)255;
-    }
-    else
-    {
       arr[*pos_a] = arr[*pos_a] - 1;
-    }
 }
 
 
@@ -135,10 +119,23 @@ void close_p(char arr[], char tablet[], int* pos_a, int* pos_t)
 
     }
 }
+int negative(int num)
+{
+    return 256 + num;
+}
+
 
 void yell(char arr[], int* pos_a)
 {
-    char c = (char) arr[*pos_a];
+    char c;
+    if (arr[*pos_a] < (char) 0)
+    {
+        c = negative(arr[*pos_a]);
+    }
+    else
+    {
+        c = arr[*pos_a];
+    }
     printf("%c", c);
 }
 
@@ -202,7 +199,6 @@ void print(char a[], int size)
 
 int main ()
 {
-
 //    declaring some shit
     int pos_tablet = 0;
     int *pos_tablet_ptr = malloc(sizeof(int));
@@ -216,7 +212,7 @@ int main ()
 
 
 
-    char tablet[] = "-*";
+    char tablet[] = "-";
 
     char arrs[NUM_BYTES];
     init0(arrs, sizeof(arrs));
@@ -227,7 +223,7 @@ int main ()
         flow(tablet, arrs, pos_tablet_ptr, pos_arr_ptr);
     }
 
-    print(arrs, sizeof(arrs));
+//    print(arrs, sizeof(arrs));
 
     free(pos_arr_ptr);
     free(pos_tablet_ptr);
