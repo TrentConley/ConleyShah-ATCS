@@ -24,25 +24,43 @@ const char ast = '*';
 
 void plus(char arr[], int* pos_a)
 {
-  arr[*pos_a] = arr[*pos_a] + 1;
+
+    if ((int)arr[*pos_a] == 255)
+    {
+        arr[*pos_a] = (char)0;
+    }
+    else
+    {
+      arr[*pos_a] = arr[*pos_a] + 1;
+    }
+
 }
 
 void minus(char arr[], int* pos_a)
 {
-  arr[*pos_a] = arr[*pos_a] - 1;
+    if ((int)arr[*pos_a] == 0)
+    {
+        arr[*pos_a] = (char)255;
+    }
+    else
+    {
+      arr[*pos_a] = arr[*pos_a] - 1;
+    }
+   // ok so i realize that this will end up with just -1 if you just enter '-' as your runes
+   // this is ok however because (char) = 255 because of the wrapping.
 }
 
 
 void mov_L(char arr[], int* pos_a)
 {
-  if (*pos_a == 0)
-  {
-    printf("You can't do that. You can't move to the left of the left most person. \n \n");
-      exit(0);
-  }
+    if (*pos_a == 0)
+    {
+        printf("You can't do that. You can't move to the left of the left most person. \n \n");
+        exit(0);
+    }
     //no else here because i want the program to break.
 
-  *pos_a = *pos_a - 1;
+    *pos_a = *pos_a - 1;
     //above is to kill the program if bad.
 }
 
@@ -121,23 +139,10 @@ void close_p(char arr[], char tablet[], int* pos_a, int* pos_t)
 
     }
 }
-int negative(int num)
-{
-    return 256 + num;
-}
-
 
 void yell(char arr[], int* pos_a)
 {
-    char c;
-    if (arr[*pos_a] < (char) 0)
-    {
-        c = negative(arr[*pos_a]);
-    }
-    else
-    {
-        c = arr[*pos_a];
-    }
+    char c = (char) arr[*pos_a];
     printf("%c", c);
 }
 
@@ -236,7 +241,7 @@ int main(int argc, char** argv)
   if (fp == NULL)
   {
     printf("Couldn't open file!\n");
-    return(1);
+    exit(1);
   }
   int i = 0;
   //running through entire file character by character
@@ -258,37 +263,35 @@ int main(int argc, char** argv)
   if(ch == 0)
   {
     puts("No valid contents inside the file.");
-    return(0);
+    exit(0);
   }
 
   if (balanced_parentheses(tablet) == false) 
   {
     puts("Invalid file. Parentheses do not match.");
-    return(0);
+    exit(0);
   }
+    int pos_tablet = 0;
+    int *pos_tablet_ptr = malloc(sizeof(int));
+    *pos_tablet_ptr = 0;
 
-  //declaring some shit
-  int pos_tablet = 0;
-  int *pos_tablet_ptr = malloc(sizeof(int));
-  *pos_tablet_ptr = 0;
+    int pos_arrs = 0;
 
-  int pos_arrs = 0;
-
-  int *pos_arr_ptr = malloc(sizeof(int));
-  *pos_arr_ptr = 0;
+    int *pos_arr_ptr = malloc(sizeof(int));
+    *pos_arr_ptr = 0;
     //printf(*pos_arr_ptr);
 
-  char arrs[NUM_BYTES];
-  init0(arrs, sizeof(arrs));
-  int size = sizeof(tablet)-1;
-  while ( (int) *pos_tablet_ptr < size)
-  {
-    flow(tablet, arrs, pos_tablet_ptr, pos_arr_ptr);
-  }
+    char arrs[NUM_BYTES];
+    init0(arrs, sizeof(arrs));
+    int size = sizeof(tablet)-1;
+    while ((int) *pos_tablet_ptr < size)
+    {
+      flow(tablet, arrs, pos_tablet_ptr, pos_arr_ptr);
+    }
 
-//print(arrs, sizeof(arrs));
+//    print(arrs, sizeof(arrs));
+
   free(pos_arr_ptr);
   free(pos_tablet_ptr);
-
-  return(0);
+  exit(0);
 }
