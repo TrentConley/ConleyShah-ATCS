@@ -25,7 +25,7 @@ void plus(char arr[], int* pos_a)
 
     if ((int)arr[*pos_a] == 255)
     {
-        arr[*pos_a] = 0;
+        arr[*pos_a] = (char)0;
     }
     else
     {
