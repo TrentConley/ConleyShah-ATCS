@@ -17,7 +17,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-#define NUM_BYTES 5
+#define NUM_BYTES 50
 
 
 void plus(char arr[], int* pos_a)
@@ -38,7 +38,6 @@ void minus(char arr[], int* pos_a)
 {
     if ((int)arr[*pos_a] == 0)
     {
-        printf("hit\n");
         arr[*pos_a] = (char)255;
     }
     else
@@ -93,10 +92,11 @@ void findclose(char tablet[], int* pos_t)
 
 void findopen(char tablet[], int* pos_t)
 {
-    printf("hit");
+
     int c = 1;
     while (c > 0)
     {
+
         *pos_t = *pos_t - 1;
         if (tablet[*pos_t] == '(')
         {
@@ -131,7 +131,7 @@ void close_p(char arr[], char tablet[], int* pos_a, int* pos_t)
     }
     else
     {
-        findclose(tablet, pos_t);
+        findopen(tablet, pos_t);
 
     }
 }
@@ -140,7 +140,6 @@ void yell(char arr[], int* pos_a)
 {
     char c = (char) arr[*pos_a];
     printf("%c", c);
-
 }
 
 void flow(char tablet[], char arrs[], int* pos_t, int* pos_a)
@@ -217,7 +216,8 @@ int main ()
 
 
 
-    char tablet[] = "+++++(-)";
+    char tablet[] = "-*";
+
     char arrs[NUM_BYTES];
     init0(arrs, sizeof(arrs));
     int size = sizeof(tablet)-1;
