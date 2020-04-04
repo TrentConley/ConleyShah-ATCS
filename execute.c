@@ -22,7 +22,7 @@
 
 void plus(char arr[], int* pos_a)
 {
-    printf("yet%d\n", *pos_a);
+
     if (arr[*pos_a] == (char) MAX_SIZE)
     {
         arr[*pos_a] = 0;
@@ -39,7 +39,6 @@ void minus(char arr[], int* pos_a)
     if (arr[*pos_a] == 0)
     {
         arr[*pos_a] = (char) MAX_SIZE;
-        printf("hit\n");
     }
     else
     {
@@ -112,6 +111,7 @@ void open_p(char arr[], char tablet[], int* pos_a, int* pos_t)
 {
     if (arr[*pos_a] == 0)
     {
+        printf("help");
         findclose(tablet, pos_t);
         //auto- edits in the heap :)
     }
@@ -144,40 +144,43 @@ void yell(char arr[], int* pos_a)
 
 void flow(char tablet[], char arrs[], int* pos_t, int* pos_a)
 {
+//    printf("halp");
     char mychar = tablet[*pos_t];
+    printf("char = %c\n", mychar);
     if (mychar == '+')
     {
         plus(arrs, pos_a);
-        pos_t = pos_t + 1;
+        *pos_t = *pos_t + 1;
+
     }
-    else if (mychar == '-')
-    {
-        minus(arrs, pos_a);
-        pos_t = pos_t + 1;
-    }
-    else if (mychar == '(')
-    {
-        open_p(arrs, tablet, pos_a, pos_t);
-    }
-    else if (mychar == ')')
-    {
-        close_p(arrs, tablet, pos_a, pos_t);
-    }
-    else if (mychar == '<')
-    {
-        mov_L(arrs, pos_a);
-        pos_t = pos_t + 1;
-    }
-    else if (mychar == '>')
-    {
-        mov_R(arrs, pos_a);
-        pos_t = pos_t + 1;
-    }
-    else if (mychar == '*')
-    {
-        yell(arrs, pos_a);
-        pos_t = pos_t + 1;
-    }
+//    else if (mychar == '-')
+//    {
+//        minus(arrs, pos_a);
+//        *pos_t = *pos_t + 1;
+//    }
+//    else if (mychar == '(')
+//    {
+//        open_p(arrs, tablet, pos_a, pos_t);
+//    }
+//    else if (mychar == ')')
+//    {
+//        close_p(arrs, tablet, pos_a, pos_t);
+//    }
+//    else if (mychar == '<')
+//    {
+//        mov_L(arrs, pos_a);
+//        *pos_t = *pos_t + 1;
+//    }
+//    else if (mychar == '>')
+//    {
+//        mov_R(arrs, pos_a);
+//        *pos_t = *pos_t + 1;
+//    }
+//    else if (mychar == '*')
+//    {
+//        yell(arrs, pos_a);
+//        *pos_t = *pos_t + 1;
+//    }
 }
 
 
@@ -200,6 +203,7 @@ void print(char a[], int size)
 
 int main ()
 {
+
 //    declaring some shit
     int pos_tablet = 0;
     int *pos_tablet_ptr = malloc(sizeof(int));
@@ -212,19 +216,24 @@ int main ()
     //printf(*pos_arr_ptr);
 
 
-    char tablet[6] = {'>','+', '+', '+', '>', '+'};
+
+    char tablet[6] = {'+','(', '+', ')', '>', '+'};
     char arrs[NUM_BYTES];
     init0(arrs, sizeof(arrs));
     int size = sizeof(tablet);
+
 
     while ( (int) *pos_tablet_ptr < size)
     {
         flow(tablet, arrs, pos_tablet_ptr, pos_arr_ptr);
     }
-    print(arrs, sizeof(arrs));
-
-
-    
+    printf("help\n");
+//    print(arrs, sizeof(arrs));
+//
+//    free(pos_arr_ptr)
+//    free(pos_tablet_ptr)
+//    free(tablet)
+//    free(arrs)
 
 }
 
