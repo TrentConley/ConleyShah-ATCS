@@ -44,6 +44,8 @@ void minus(char arr[], int* pos_a)
     {
       arr[*pos_a] = arr[*pos_a] - 1;
     }
+   // ok so i realize that this will end up with just -1 if you just enter '-' as your runes
+   // this is ok however because (char) = 255 because of the wrapping.
 }
 
 
@@ -216,7 +218,7 @@ int main ()
 
 
 
-    char tablet[] = "-*";
+    char tablet[] = "+++++++++++++++++++++++++++++++++*>++++++++++*";
 
     char arrs[NUM_BYTES];
     init0(arrs, sizeof(arrs));
